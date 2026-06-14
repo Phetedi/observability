@@ -18,10 +18,11 @@ scrape_configs:
       - targets:
           - 'node-exporter:9100'
 
-  - job_name: 'linux-vms'
+  - job_name: 'springboot-app'
+    metrics_path: '/actuator/prometheus'
     static_configs:
       - targets:
-          - '192.168.0.118:9100'
+        - 'observability-api:8080'
 
   - job_name: 'windows-vms'
     static_configs:
