@@ -4,20 +4,19 @@ pipeline {
 
     stages {
 
-        stage('Environment Check') {
+        stage('Docker Validation') {
 
             steps {
 
                 sh '''
-                echo "Java Version"
-                java -version
+                whoami
+                id
 
-                echo ""
-                echo "Maven Version"
-                mvn -version
+                ls -l /var/run/docker.sock
+
+                docker version
                 '''
             }
         }
-
     }
 }
