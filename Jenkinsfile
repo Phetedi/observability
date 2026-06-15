@@ -4,17 +4,17 @@ pipeline {
 
     stages {
 
-        stage('Checkout Verification') {
+        stage('Environment Check') {
 
             steps {
 
                 sh '''
-                echo "Workspace Information"
-                pwd
+                echo "Java Version"
+                java -version
 
                 echo ""
-                echo "Repository Contents"
-                ls -la
+                echo "Maven Version"
+                mvn -version
                 '''
             }
         }
