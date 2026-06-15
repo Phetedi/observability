@@ -4,19 +4,20 @@ pipeline {
 
     stages {
 
-        stage('Checkout') {
-            steps {
-                checkout scm
-            }
-        }
+        stage('Checkout Verification') {
 
-        stage('Verify Workspace') {
             steps {
+
                 sh '''
+                echo "Workspace Information"
                 pwd
+
+                echo ""
+                echo "Repository Contents"
                 ls -la
                 '''
             }
         }
+
     }
 }
