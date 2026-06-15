@@ -9,32 +9,33 @@ pipeline {
     stages {
 
         stage('Environment Check') {
-
             steps {
-
                 sh '''
-                echo "Java Version"
                 java -version
-
-                echo ""
-                echo "Maven Version"
                 mvn -version
                 '''
             }
         }
 
         stage('Build Application') {
-
             steps {
-
                 dir('applications/springboot-app/demo') {
-
-                    sh '''
-                    mvn clean package
-                    '''
+                    sh 'mvn clean package'
                 }
-
             }
+        }
+
+    }
+
+    post {
+
+        success {
+
+            archiveArtifacts(
+                artifacts: 'applications/springboot-app/demo/target/*.jar',
+                fingerprint: true
+            )
+
         }
 
     }
