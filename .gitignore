@@ -1,1 +1,11 @@
 jenkins/home/
+*.log
+*.tmp
+
+target/
+
+node_modules/
+
+.env
+
+*.swp
