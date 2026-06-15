@@ -1,20 +1,24 @@
 pipeline {
 
-    agent any
+    agent {
+        docker {
+            image 'maven:3.9.9-eclipse-temurin-17'
+        }
+    }
 
     stages {
 
-        stage('Docker Validation') {
+        stage('Build Application') {
 
             steps {
 
                 sh '''
-                whoami
-                id
+                java -version
+                mvn -version
 
-                ls -l /var/run/docker.sock
+                cd applications/springboot-app/demo
 
-                docker version
+                mvn clean package
                 '''
             }
         }
