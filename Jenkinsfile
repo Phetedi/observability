@@ -1,26 +1,42 @@
 pipeline {
 
-    agent {
-	tools {
-            maven 'Maven-3.9'
-        }
+    agent any
+
+    tools {
+        maven 'Maven-3.9'
     }
 
     stages {
+
+        stage('Environment Check') {
+
+            steps {
+
+                sh '''
+                echo "Java Version"
+                java -version
+
+                echo ""
+                echo "Maven Version"
+                mvn -version
+                '''
+            }
+        }
 
         stage('Build Application') {
 
             steps {
 
-                sh '''
-                java -version
-                mvn -version
+                dir('applications/springboot-app/demo') {
 
-                cd applications/springboot-app/demo
+                    sh '''
+                    mvn clean package
+                    '''
+                }
 
-                mvn clean package
-                '''
             }
         }
+
     }
+
 }
