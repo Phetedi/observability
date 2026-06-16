@@ -2,39 +2,23 @@ pipeline {
 
     agent any
 
-    tools {
-        maven 'Maven-3.9'
-    }
-
     stages {
 
-        stage('Environment Check') {
-            steps {
-                sh '''
-                java -version
-                mvn -version
-                '''
-            }
-        }
+        stage('Docker Agent Test') {
 
-        stage('Build Application') {
-            steps {
-                dir('applications/springboot-app/demo') {
-                    sh 'mvn clean package'
+            agent {
+                docker {
+                    image 'alpine:latest'
                 }
             }
-        }
 
-    }
+            steps {
 
-    post {
-
-        success {
-
-            archiveArtifacts(
-                artifacts: 'applications/springboot-app/demo/target/*.jar',
-                fingerprint: true
-            )
+                sh '''
+                echo "Running inside Docker agent"
+                cat /etc/os-release
+                '''
+            }
 
         }
 
